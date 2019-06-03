@@ -5,7 +5,16 @@
   </h1>
 </div>
 
-<app-resume-page></app-resume-page>
-<app-projects-page></app-projects-page>
+<mat-tab-group>
+  <mat-tab label="One">
+    <app-resume-page></app-resume-page>
+  </mat-tab>
+  <mat-tab label="Two">
+    <app-projects-page></app-projects-page>
+  </mat-tab>
+</mat-tab-group>
+
+
+
 
 <router-outlet></router-outlet>
