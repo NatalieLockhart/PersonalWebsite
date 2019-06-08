@@ -1,0 +1,11 @@
+.mainDiv {
+    text-align:center;
+}
+
+.secondaryDiv {
+    display: inline-block;
+}
+
+.skills{
+    column-count: 3;
+}
