@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+          nodejs: 10
+        commands:
+            - cd personal-website
+            - npm install -g @angular/cli 
+            - npm install
+    build:
+        commands:
+            - echo Build started on `date` 
+            - ng build --aot --prod --build-optimizer
+    post_build:
+        commands:    
+            - aws s3 cp dist/personal-website/ s3://www.natalielockhart.com --recursive
+            - echo Build completed on `date`
+artifacts: 
+  type: NO_ARTIFACTS 
