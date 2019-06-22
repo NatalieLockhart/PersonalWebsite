@@ -12,8 +12,8 @@ phases:
             - echo Build started on `date` 
             - ng build --aot --prod --build-optimizer
     post_build:
-        commands:    
-            - aws s3 cp dist/personal-website/ s3://www.natalielockhart.com --recursive
+         commands:   
+            - aws s3 sync dist/personal-website/ s3://www.natalielockhart.com --delete
             - echo Build completed on `date`
 artifacts: 
   type: NO_ARTIFACTS 
