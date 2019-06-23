@@ -3,5 +3,5 @@
 </p>
 
 <div *ngFor="let dogPicture of dogPictures"> dog pics
-  <img src={{dogPicture}} alt="" crossorigin="anonymous">
+  <img src={{dogPicture.imgSrc}} alt="" height={{dogPicture.height}} width={{dogPicture.width}} >
 </div>
