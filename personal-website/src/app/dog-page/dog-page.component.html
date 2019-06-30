@@ -2,4 +2,8 @@
   This is my dog, Ven. He is a goofy German Shepherd who loves to dunk his toys in his water bowl.
 </p>
 
-<div id="dogPicDiv"></div>
+<div class="centerPictures" *ngIf="fixedDogPictures[0]">
+  <div *ngFor="let dogPicture of fixedDogPictures">
+    <img src={{dogPicture.imgSrc}} height={{dogPicture.height}} width={{dogPicture.width}}>
+  </div>
+</div>

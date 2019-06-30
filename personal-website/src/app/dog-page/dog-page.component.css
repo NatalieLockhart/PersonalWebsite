@@ -1,0 +1,15 @@
+img {
+    padding: 10px;
+    margin: 10px;
+    float: left;
+}
+
+.centerPictures {
+    margin-left: 8%;
+    margin-right: 8%;
+} 
+
+p{
+    text-align: center;
+}
+

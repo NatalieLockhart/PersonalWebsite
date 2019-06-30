@@ -1,6 +1,7 @@
-import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { DOGPICTURES } from '../dogPictures';
 import { DogPicture } from '../dog-picture';
+
 
 @Component({
   selector: 'app-dog-page',
@@ -10,15 +11,16 @@ import { DogPicture } from '../dog-picture';
 export class DogPageComponent implements OnInit {
 
   dogPictures : DogPicture[] = [];
+  fixedDogPictures : DogPicture[] = [];
   dogPictureLinks = DOGPICTURES;
   loadImage : any = require('blueimp-load-image');
   dogPicDiv : any;
 
-  constructor(private rd: Renderer2) {}
+  constructor() {}
 
   ngOnInit() {
     this.populateDogPictures();
-    this.determineDimensions();
+    this.determineOrientation();
   }
 
   populateDogPictures(){
@@ -27,25 +29,37 @@ export class DogPageComponent implements OnInit {
     });
   }
 
-  determineDimensions(){
+  determineOrientation(){
     this.dogPictures.forEach(dogPicture => {
-      this.loadImage(
-        dogPicture.imgSrc, 
-        function(img, data) {
-          if(img.type === "error") {
-            console.error("Error loading image sry");
-          } else {
-            document.body.appendChild(img);
-            //document.querySelector('#dogPicDiv').appendChild(img);
-            console.log("Original image width: ", data.originalWidth);
-            console.log("Original image height: ", data.originalHeight);
-          }
-        },
-        {maxWidth: 600}
-      );
-    });
+      var picHolder : Promise<any> = new Promise((resolve) => {
+        this.loadImage(
+          dogPicture.imgSrc, 
+          function(img, data) {
+            if(img.type === "error") {
+              console.error("There was an error loading the image.");
+            }
+            else{
+              resolve(img);
+            }
+          },
+          {maxWidth: 600}
+          );
+        });
+        picHolder.then(data => {
+          this.resize(data);
+          this.fixedDogPictures.push(new DogPicture(data.src, data.height, data.width));
+        })
+    }, this);
   }
 
-
-
+  resize(image : any){
+    if(image.height > image.width){
+      image.width = window.innerWidth/4;
+      image.height = image.width*1.33;
+    } 
+    else{ 
+      image.width = window.innerWidth/2.26;
+      image.height = image.width*0.75;
+    }
+  }
 }
